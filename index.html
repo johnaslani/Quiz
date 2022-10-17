@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./Assets/css/style.css" />
+    <title>Quiz</title>
+    </head>
+<body>
+    <segment id= "welcome">
+        <h1>Coding Quiz Challanege</h1>
+        <h2>Try to answer the following code-related questions within the time limit. Keep in mind the incorrect asnweres will penalize your score/timeby seconds!</h2>
+        <button id="generate" class="btn">Start Quiz</button>
+    </segment>
+    <segment id="quizBox">
+        <h2 id="question"></h2>
+        <button id="choice1" class="answerBtn"></button>
+        <button id="choice2" class="answerBtn"></button>
+        <button id="choice3" class="answerBtn"></button>
+        <button id="choice4" class="answerBtn"></button>
+        <h2 id="timerElement">Time is up</h2>
+    </segment>
+    <segment id="result">
+        <h2>Highscore</h2>
+        <div id="resultDisplay"></div>
+        <button id="goBack">Go Back</button>
+        <button id="clearHighScore">Clear Highscore</button>
+    </segment>
+    <script src="./Assets/js/script.js"></script>
+</body>
+</html>
