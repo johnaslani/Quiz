@@ -6,12 +6,10 @@ var resultDisplay = document.querySelector("#resultDisplay");
 var clearHighScore = document.querySelector("#clearHighScore");
 var goBack = document.querySelector("#goBack");
 var timerElement = document.querySelector("#timerElement");
-const questionResult = document.getElementById("questionResultDisplay");
 var scoreDisplay = 0;
 var timerCount = 0;
-var timeLeft = 200000;
+var timeLeft = 2000;
 var history = "";
-var answer = "Wrong!";
 
 var qBank = [
   {
@@ -69,26 +67,20 @@ var score = 0;
 var attempt = 0;
 
 function startQuiz() {
-  score = 0;
-  index = qBank.length - 1;
-  timeLeft = 60;
   welcome.style.display = "none";
   quizBox.style.display = "block";
   result.style.display = "none";
-  questionResult.style.display = "none";
-
-  startTimer();
+  // startTimer();
   displayQuestion();
   attempt++;
 }
 
 function startTimer() {
   timeInterval = setInterval(function () {
-    timeLeft--;
-    console.log(timeLeft);
-    timerElement.textContent = timeLeft;
+    timeLeft--, console.log(timeLeft);
+    timerElement.textContent = timerCount;
     // Tests if time has run out
-    if (timeLeft <= 0) {
+    if (timerCount <= 0) {
       endGame();
     }
   }, 1000);
@@ -105,7 +97,6 @@ function displayQuestion() {
   choice3.textContent = qBank[index].c3;
   const choice4 = document.getElementById("choice4");
   choice4.textContent = qBank[index].c4;
-  questionResult.textContent = answer;
 }
 
 function checkAnswer(event) {
@@ -113,14 +104,11 @@ function checkAnswer(event) {
   if (event.target.matches("button")) {
     console.log("I clicked the button");
     if (event.target.textContent == qBank[index].a) {
-      console.log("You clicked the correct answer");
-      asnwer = "Correct";
+      console.log("You clickec the correct answer");
       score++;
     } else {
       console.log("You clickec a wrong answer");
-      asnwer = "Wrong";
     }
-    questionResult.style.display = "block";
     index--;
     if (index < 0) {
       endGame();
@@ -128,13 +116,6 @@ function checkAnswer(event) {
       displayQuestion();
     }
   }
-}
-
-function displayFinalResult() {
-  for (i = 0; i < attempt; i++) {
-    display = display + `\n ${attempt} attempt, ${initialName}, ${score}`;
-  }
-  return display;
 }
 
 function endGame() {
@@ -145,27 +126,15 @@ function endGame() {
   // history = appendChild(consol.log(InitialName + " " + score))
   // ?? Display attempt histroy
   // historyDisplay.textContent = `${attempt} attempt, ${initialName}, ${score}`;
-  // resultDisplay.textContent = display;
-  var newEntry = { initials: initialName, score: score };
-  var allscores = JSON.parse(localStorage.getItem("highScores")) || [];
-  allscores.push(newEntry);
-  localStorage.setItem("highScores", JSON.stringify(allscores));
-  resultDisplay.innerHTML = "";
-  for (i = 0; i < allscores.length; i++) {
-    var newElement = document.createElement("li");
-    newElement.textContent = `player: ${allscores[i].initials}, ${allscores[i].score}`;
-    resultDisplay.appendChild(newElement);
-  }
-  // resultDisplay.textContent = `${attempt} attempt, ${initialName}, ${score}`;
-  clearInterval(timeInterval);
+  resultDisplay.textContent = `${attempt} attempt, ${initialName}, ${score}`;
+  clearinterval(timeInterval);
 }
+
 
 // Updates score count on screen and sets score count to client storage
 function setScore() {
-  // scoreDisplay.${`attempt`}.textContent = score;
-  scoreDisplay.textContent = score;
-  // localStorage.setItem(${attempt}"_score", score);
-  localStorage.setItem("_score", score);
+  scoreDisplay.${`attempt`}.textContent = score;
+  localStorage.setItem(${attempt}"_score", score);
 }
 
 // Updates score count on screen and sets score count to client storage
@@ -174,18 +143,26 @@ function setAttempts() {
   localStorage.setItem("attempt", attempt);
 }
 
-function clearScore() {}
+function clearScroe() {}
 
 function goToStart() {
+  score = 0;
+  index = qBank.length - 1;
+  timerCount = 5000; //swap with startTime()
   welcome.style.display = "block";
   quizBox.style.display = "none";
   result.style.display = "none";
-  questionResult.style.display = "none";
+  startQuiz(); //? Added?
 }
 
-clearHighScore.addEventListener("click", clearScore);
+// InitialName = prompt("What is your initial name", "Enter your initial" );
+// history = appendChild(consol.log(InitialName + " " + score))
+// clearHistory = c
+clearHighScore.addEventListener("click", clearScroe);
 goBack.addEventListener("click", goToStart);
 generateBtn.addEventListener("click", startQuiz);
+// goBackBtn.addEventListener("click", goBack);
+// clearScoreBtn.addEventListener("click", clearScore);
 quizBox.addEventListener("click", checkAnswer);
 // answerBtn.addEventListener("click", checkAnswer);
 // The init function is called when the page loads

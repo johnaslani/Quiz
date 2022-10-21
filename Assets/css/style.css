@@ -10,3 +10,7 @@ h1 {
 #result {
   display: none;
 }
+
+#questionResult {
+  display: none;
+}
